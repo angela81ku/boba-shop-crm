@@ -1,8 +1,10 @@
 package com.example.springtemplate.daos;
 
 import com.example.springtemplate.models.Drink;
+import com.example.springtemplate.models.DrinkType;
 import com.example.springtemplate.models.Order;
 import com.example.springtemplate.repositories.DrinkRestRepository;
+import com.example.springtemplate.repositories.DrinkTypeRepository;
 import com.example.springtemplate.repositories.OrderAssign2DrinkRestRepository;
 import com.example.springtemplate.repositories.OrderRestRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,9 @@ public class DrinkRestOrmDao {
     DrinkRestRepository drinkRestRepository;
 
     @Autowired
+    DrinkTypeRepository drinkTypeRepository;
+
+    @Autowired
     OrderRestRepository orderRestRepository;
 
     @Autowired
@@ -27,6 +32,16 @@ public class DrinkRestOrmDao {
         return drinkRestRepository.save(drink);
     }
 
+    @PostMapping("api/drinkTypes")
+    public DrinkType createDrinkType(@RequestBody DrinkType drinkType){
+        return drinkTypeRepository.save(drinkType);
+    }
+
+    @GetMapping("api/drinkTypes")
+    public List<DrinkType> findAllDrinkType(){
+        return drinkTypeRepository.findAllDrinkTypes();
+
+    }
 //    @PostMapping("/api/orders/{orderId}/drinks")
 //    public OrderAssign2Drink createDrinkForOrder(
 //            @PathVariable("orderId") Integer oid,
@@ -82,4 +97,6 @@ public class DrinkRestOrmDao {
             @PathVariable("drinkId") Integer id) {
                 drinkRestRepository.deleteById(id);
     }
+
+
 }

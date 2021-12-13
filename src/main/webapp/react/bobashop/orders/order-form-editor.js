@@ -148,10 +148,10 @@ const OrderFormEditor = () => {
                    value={order.tip}/>
 
             <br/>
-            <Link to={`/drinks`}>
-                Drinks Menu
+            {/*<Link to={`/drinks`}>*/}
+            {/*    Drinks Menu*/}
 
-            </Link>
+            {/*</Link>*/}
             <br/>
 
             <Link to={`/orders/${id}/drinks`}>

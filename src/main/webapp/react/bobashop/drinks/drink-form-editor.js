@@ -9,10 +9,13 @@ const DrinkFormEditor = () => {
     const {id} = useParams()// parse "id" from URL
     const [drink, setDrink] = useState({})
     const [orders, setOrders]= useState({})
+    const [drinkTypes, setDrinkTypes] = useState([])
+    const [newDrinkType, setNewDrinkType] = useState([])
     useEffect(() => { // on load
         if(id !== "new") {
             findDrinkById(id)
             findOrdersByDrinkId(id)
+             // findAllDrinkTypes()
         }
     }, []);
     const createDrink = (drink) =>
@@ -24,6 +27,10 @@ const DrinkFormEditor = () => {
     const findDrinkById = (id) =>// fetch a single user using their ID
         drinkService.findDrinkById(id)// use user service's new findUserById
             .then(drink => setDrink(drink)) //// store user from server to local user state variable
+
+    const findAllDrinkTypes = () =>
+        drinkService.findAllDrinkTypes()
+            .then(drinkTypes => setDrinkTypes(drinkTypes))
 
     const updateDrink = (id, newDrink) =>
         drinkService.updateDrink(id, newDrink)
@@ -63,10 +70,7 @@ const DrinkFormEditor = () => {
             </button>
 
 
-            <button className="btn btn-success"
-                    onClick={() => createDrink(drink)}>
-                Create Drink
-            </button>
+            {/*f*/}
 
             <button className="btn btn-primary"
                     onClick={() => updateDrink(drink.id, drink)}>

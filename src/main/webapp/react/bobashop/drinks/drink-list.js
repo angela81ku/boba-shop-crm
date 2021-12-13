@@ -5,16 +5,32 @@ const { useState, useEffect } = React;
 const DrinkList = () => {
     const history = useHistory()
     const [drinks, setDrinks] = useState([])
+
     const [newDrink, setNewDrink] = useState({})
+
     useEffect(() => {
         findAllDrinks()
+
     }, [])
-    const createDrink = (drink) =>
+    const createDrink = (drink,drinkType) =>{
+        drinkService.createDrinkType(drinkType)
+            .then(drinkType=>{
+                //TODO trouble might be here
+                setNewDrinkType([''])
+                setDrinkTypes(drinkTypes => ([...drinkTypes,drinkType]))
+            })
+
+
         drinkService.createDrink(drink)
             .then(drink => {
                 setNewDrink({title:''})
                 setDrinks(drinks => ([...drinks, drink]))
-            })
+            }
+
+            )
+
+
+    }
     const updateDrink = (id, newDrink) =>
         drinkService.updateDrink(id, newDrink)
             .then(drink => setDrinks(drinks => (drinks.map(drink => drink.id === id ? newDrink : drink))))
@@ -23,6 +39,9 @@ const DrinkList = () => {
         drinkService.findAllDrinks()
             .then(drinks => setDrinks(drinks))
 
+    const findAllDrinkTypes = () =>
+        drinkService.findAllDrinkTypes().
+            then(drinkTypes => setDrinkTypes((drinkTypes)))
     const deleteDrink = (id) =>
         drinkService.deleteDrink(id)
             .then(drinks => setDrinks(drinks => drinks.filter(drink => drink.id !== id)))
@@ -30,10 +49,10 @@ const DrinkList = () => {
 
         <div>
             <h2>Menu</h2>
-            <button className="btn btn-success"
-                    onClick={() => history.push("/drinks/new")}>
-                Add Drink
-            </button>
+            {/*<button className="btn btn-success"*/}
+            {/*        onClick={() => history.push("/drinks/new")}>*/}
+            {/*    Add Drink*/}
+            {/*</button>*/}
 
             <ul className="list-group">
                 {
