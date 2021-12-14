@@ -7,7 +7,13 @@ import 'react-confirm-alert/src/react-confirm-alert.css';
 
 const DrinkFormEditor = () => {
     const {id} = useParams()// parse "id" from URL
-    const [drink, setDrink] = useState({})
+    const [drink, setDrink] = useState({
+        price:'',
+        name:'',
+        drinkType:{
+            drinkType:'',
+        }
+    })
     const [orders, setOrders]= useState({})
     const [drinkTypes, setDrinkTypes] = useState([])
     const [newDrinkType, setNewDrinkType] = useState([])
@@ -49,8 +55,19 @@ const DrinkFormEditor = () => {
             <input
                 onChange={(e) =>
                     setDrink(drink =>
-                        ({...drink, name: e.target.value}))}
-                value={drink.name}/>
+                        // ({...drink, name: e.target.value}))
+                    ({...drink, drinkType:{...drink.drinkType, drinkType:e.target.value}}))
+                    // setDrink(drink =>
+                    // // ({...drink, name: e.target.value}))
+                    // ({...drink, name:e.target.value}))
+                }
+
+                // onChange={(e) =>
+                //     setDrink(drink =>
+                //         ({...drink, drinkType: {drinkType:e.target.value}}))
+                //
+                // }
+                value={drink.drinkType.drinkType}/>
             <br/>
 
             <label>Price</label>
@@ -70,7 +87,10 @@ const DrinkFormEditor = () => {
             </button>
 
 
-            {/*f*/}
+            <button className="btn btn-primary"
+                    onClick={() => createDrink( drink)}>
+                create drink
+            </button>
 
             <button className="btn btn-primary"
                     onClick={() => updateDrink(drink.id, drink)}>

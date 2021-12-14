@@ -1,4 +1,5 @@
 package com.example.springtemplate.models;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
@@ -17,6 +18,7 @@ public class Person {
     private String username;
     private String password;
     private String email;
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "UTC")
     private Date dateOfBirth;
 
 //    @OneToOne(mappedBy = "person", cascade = { CascadeType.REMOVE, CascadeType.PERSIST })
